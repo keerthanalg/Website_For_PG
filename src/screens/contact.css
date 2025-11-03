@@ -1,0 +1,23 @@
+.contactUsWrapper {
+  padding: 4rem 8rem;
+
+  h2,
+  h4 {
+    color: #ffbf00;
+  }
+  
+  p{
+    font-size: 22px;
+  }
+  
+  label{
+    font-size: 20px !important;
+    
+  }
+  
+  button {
+    background-color: #ffbf00 !important;
+    color: white !important;
+    font-weight: 900 !important;
+  }
+}

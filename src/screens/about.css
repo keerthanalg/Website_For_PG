@@ -1,0 +1,62 @@
+.aboutWrapper {
+    padding: 0em 0em 5em 0em;
+
+    h2 {
+        color: rgb(255, 179, 0);
+        font-size: 40px;
+    }
+
+    h2:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    li{
+        font-size: 22px;
+        line-height: 3rem;
+        margin-left: 2rem;
+    }
+
+    p:not(.intro) {
+        font-size: 22px;
+        text-align: justify;
+        padding: 0em 4em 0em 0.3em;
+    }
+}
+
+.about_detail {
+    background-image: url('../assets/images/girl_img.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-x: unset;
+
+    p {
+        font-size: 17px;
+    }
+
+    h1 {
+        font-size: 4rem;
+        color: #ffbf00;
+        text-underline-offset: initial;
+        text-decoration: underline;
+        text-decoration-color: currentcolor;
+        text-decoration-color: #ffbf00;
+    }
+}
+
+.residents_details {
+    width: 22rem;
+    height: 13rem;
+    border: 1px solid #dcdcdc;
+    margin: 5rem auto;
+
+    i {
+        font-size: 35px;
+        margin: -3rem 0rem;
+        position: relative;
+        box-sizing: initial;
+        padding: 1rem;
+        background: #fff;
+        left: 6%;
+    }
+}

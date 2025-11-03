@@ -1,0 +1,50 @@
+.defaultHeaderWrapper {
+    /* background-image: url('../../assets/images/df_bg.jpg'); */
+    display: flex;
+    justify-content: space-between;
+}
+
+.headerLeft {
+    display: flex;
+    gap: 1em;
+}
+
+.headerMiddle {
+    display: flex;
+    gap: 11em;
+    margin: auto;
+    font-size: 24px;
+}
+
+.headerRight {
+    margin: 2em 2em 0em 0em;
+    /* // margin-left: auto;
+        // margin-top: 2em;
+        // margin-right: 2em; */
+}
+
+.footer_followus_wrapper {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-evenly;
+    text-align: start;
+    /* margin: 0; */
+    padding:2rem 0;
+    height: 20vh;
+}
+
+.footer ul{
+    list-style-type: none;
+}
+
+.defaultHeaderWrapper img {
+    border-radius: 1rem;
+}

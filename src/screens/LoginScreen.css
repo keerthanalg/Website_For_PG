@@ -1,0 +1,70 @@
+
+  .loginWrapper {
+    height: 100vh; 
+    display: grid;
+    overflow: hidden;
+  }
+
+.left_banner {
+    background-image: url("../assets/images/building_pic.png") !important;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+}
+
+.right_banner {
+    background: #ffbf00;
+    color: white;
+    font-weight: bold;
+}
+
+#loginContainer {
+    display: grid;
+    place-items: center;
+}
+
+.userName,
+.password {
+    font-size: large;
+    line-height: 3em;
+    padding: 0.3em 0.5em;
+}
+
+.loginWrapper .ui.form .field>label {
+    color: black !important;
+    line-height: 0.9em;
+}
+
+.userName input {
+    margin: 0em 1em;
+}
+
+button {
+    background-color: #ffbf00 !important;
+    color: white !important;
+}
+
+.buttonWrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.buttonWrapper button {
+    background-color: black !important;
+    color: white !important;
+    font-size: 1.2em !important;
+}
+
+.form .fa-eye,
+.form .fa-eye-slash {
+    position: absolute !important;
+    right: 1em !important;
+    top: 2rem !important;
+    cursor: pointer !important;
+    color: #555 !important;
+}
+
+form .field {
+    width: 35em;
+}
