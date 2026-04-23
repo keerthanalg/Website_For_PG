@@ -1,13 +1,28 @@
 .homeScreenWrapper .homeBanner {
-  background-image: url("../assets/images/banner.png");
+  background-image: url("../assets/images/landing_screen_bg.svg");
   background-repeat: no-repeat;
   background-size: cover;
-  color: white;
+  /* color: white; */
   height: 90vh;
   position: relative;
+  background-color: #FFC300;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 7rem;
+h1{
+  font-size: 8em !important;
+  font-family: Crimson Text;
 }
 
-.homeScreenWrapper .homeBanner::before {
+h5{
+  font-size: 3em !important;
+  font-family: Josefin Sans;
+  color: white;
+}
+}
+
+/* .homeScreenWrapper .homeBanner::before {
   content: "";
   position: absolute;
   top: 0;
@@ -15,7 +30,7 @@
   width: 100%;
   height: 90%;
   margin: 7em 0em 0em 0em; 
-}
+} */
 /* 
 .homeScreenWrapper{
   content: "";
@@ -23,21 +38,24 @@
   top: 0;
 } */
 
-.homeScreenWrapper .homeBanner>div {
+/* .homeScreenWrapper .homeBanner>div {
   padding: 10em;
   position: relative;
   z-index: 20;
-}
+} */
 
-.homeScreenWrapper .homeBanner h1 {
+/* .homeScreenWrapper .homeBanner h1 {
   font-size: 5em !important;
   padding: 2em 0em 0em 2em;
+  font-family: Crimson Text;
 }
 
 .homeScreenWrapper h5 {
   font-size: 2em !important;
-  padding: 0em 0em 0em 5em;
-}
+  font-family: Josefin Sans;
+  color: white;
+  padding: 0em 0em 0em 6em;
+} */
 
 .homeScreenWrapper>div h2 {
   font-size: 4em !important;
