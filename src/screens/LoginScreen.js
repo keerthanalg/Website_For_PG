@@ -265,7 +265,7 @@ const LoginScreen = () => {
   //   }
   //   resetForm();
   // };
-  const ADMIN_EMAILS = ["admin@gmail.com"];
+  const ADMIN_EMAILS = ["admin1@gmail.com"];
 
   const handleLogin = async (values, { resetForm }) => {
     try {
@@ -363,7 +363,7 @@ const LoginScreen = () => {
                     <div
                       style={{
                         textAlign: "right",
-                        margin: "1em",
+                        // margin: "1em",
                         display: "flex",
                         justifyContent: "space-between",
                         color: "black",

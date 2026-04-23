@@ -16,6 +16,7 @@ import reading_area from "../assets/icons/reading_area.png";
 import power_backup from "../assets/icons/power_backup.png";
 import parking from "../assets/icons/parking.png";
 import supportive from "../assets/icons/suppotive.png";
+import landing_img from "../assets/images/landing_img.svg";
 
 import { useNavigate } from "react-router-dom";
 
@@ -50,7 +51,7 @@ const HomeScreen = () => {
     {
       header: {
         image: laundry,
-      },
+      }, 
       description: {
         title: "Laundry & Hygiene Facilities",
         description:
@@ -146,11 +147,11 @@ const HomeScreen = () => {
       <div className="homeBanner">
         <div>
           <h1>
-            Discover Your Home Away From <br />
-            Home
+            Discover Your Home Away From Home
           </h1>
           <h5>Experience comfort and convenience in our top rated PG</h5>
         </div>
+        <div><img src={landing_img} alt="landing" style={{ width: "39em"}}/></div>
       </div>
       <div>
         <h2>Features</h2>
