@@ -1,4 +1,6 @@
 import React from "react";
+import { inquiry_db } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
 import { Button, Form, Grid } from "semantic-ui-react";
 import "./contact.css";
 import { Formik } from "formik";
@@ -9,6 +11,7 @@ const ContactScreen = () => {
     full_name: Yup.string().required("Name is required"),
     email: Yup.string().required("Email is required"),
     phone: Yup.string().required("Phone number is required"),
+    address: Yup.string().required("Address is required"),
     date: Yup.string().required("Move-In Date is required"),
   });
   return (
@@ -45,11 +48,29 @@ const ContactScreen = () => {
                 email: "",
                 phone: "",
                 date: "",
+                address:"",
                 message: "",
               }}
-              onSubmit={(values, { resetForm }) => {
-                resetForm();
-                console.log(values, "values");
+             
+              onSubmit={async (values, { resetForm }) => {
+                try {
+                  const docRef = await addDoc(collection(inquiry_db, "inquiries"), {
+                    full_name: values.full_name,
+                    email: values.email,
+                    phone: values.phone,
+                    date: values.date,
+                    address: values.address,
+                    message: values.message,
+                    submittedAt: new Date()
+                  });
+                  console.log(inquiry_db, inquiry_db);
+                  console.log("Saved with ID:", docRef.id);
+                  alert("Submitted!");
+                  resetForm();
+                } catch (error) {
+                  console.error("Error:", error);
+                  alert("Error saving");
+                }   
               }}
             >
               {({
@@ -87,15 +108,15 @@ const ContactScreen = () => {
                   </Form.Field>
                   <Form.Field>
                     <label>Address</label>
-                    <input 
-                    name="address"
-                    values={values.address}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
+                    <input
+                      name="address"
+                      value={values.address}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                     />
-                 {touched.address && errors.address && (
-                  <div className="error">{errors.address}</div>
-                 )}
+                    {touched.address && errors.address && (
+                      <div className="error">{errors.address}</div>
+                    )}
                   </Form.Field>
                   <Form.Field>
                     <label>Phone Number</label>
@@ -128,7 +149,6 @@ const ContactScreen = () => {
                       name="message"
                       value={values.message}
                       onChange={handleChange}
-                      onafterprint
                       onBlur={handleBlur}
                     />
                   </Form.Field>
