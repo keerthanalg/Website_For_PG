@@ -3,6 +3,11 @@ import "./offers.css";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Formik } from "formik";
+// import { queries } from "@testing-library/react";
+import * as Yup from "yup";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { feedbackdb } from "../firebase";
 
 // import kitchen from "../assets/icons/kitchen_area.png";
 
@@ -17,6 +22,27 @@ const Offersandupdate = () => {
     swipeToSlide: true,
     prevArrow: <button className="custom-prev"></button>,
     nextArrow: <button className="custkom-next"></button>,
+  };
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Name is required"),
+    room_no: Yup.string().required("Room number is required"),
+    message: Yup.string().required("Message is required"),
+    type: Yup.string().required("Please select one option"),
+  });
+
+  const handleFormSubmit = async (values, {resetForm}) => {
+    console.log('Form Values:', values)
+    try {
+      await addDoc(collection(feedbackdb, "feedbackAndqueries"), {
+        ...values,
+        submittedAt: Timestamp.now()
+      });
+      alert("Feedback submitted successfully!");
+      resetForm();
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
   };
 
   const weeklyMenu = [
@@ -109,42 +135,101 @@ const Offersandupdate = () => {
 
           <Grid.Column width={6}>
             <h2>Feedback & Queries</h2>
-            <form style={{ padding: "1rem 13rem" }}>
-              <input placeholder="Name" />
-              <br /> <br />
-              <input placeholder="Room No." />
-              <br /> <br />
-              <textarea placeholder="Message" />
-              <br /> <br />
-              <div
-                style={{
-                  display: "inline-block",
-                  gap: "2rem",
-                  alignItems: "center",
-                }}
-              >
-                <label>
-                  <input
-                    style={{ margin: "0.3rem" }}
-                    type="radio"
-                    name="option"
-                    value="feedback"
-                  />
-                  Feedback
-                </label>
+            <Formik
+              validationSchema={validationSchema}
+              initialValues={{
+                name: "",
+                room_no: "",
+                message: "",
+                type:""
+              }}
+              onSubmit={handleFormSubmit}
+            >
+              {({
+                handleSubmit,
+                handleChange,
+                handleBlur,
+                values,
+                errors,
+                touched,
+              }) => (
 
-                <label>
+                <form
+                  style={{ padding: "1rem 13rem" }}
+                  onSubmit={handleSubmit}
+                >
                   <input
-                    style={{ margin: "0.3rem" }}
-                    type="radio"
-                    name="option"
-                    value="queries"
+                    placeholder="Name"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                   />
-                  Queries
-                </label>
-              </div>
-              <button>Submit</button>
-            </form>
+                  {touched.name && errors.name && (
+                    <div className="error">{errors.name}</div>
+                  )}
+                  <br /> <br />
+                  <input
+                    placeholder="Room No."
+                    name="room_no"
+                    value={values.room_no}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {touched.room_no && errors.room_no && (
+                    <div className="error">{errors.room_no}</div>
+                  )}
+                  <br /> <br />
+                  <textarea
+                    style={{ padding: "1em  1.6em  1em 0.6em" }}
+                    placeholder="Message"
+                    name="message"
+                    value={values.message}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                  {touched.message && errors.message && (
+                    <div className="error">{errors.message}</div>
+                  )}
+                  <br /> <br />
+                  <div
+                    style={{
+                      display: "inline-block",
+                      gap: "2rem",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label>
+                      <input
+                        style={{ margin: "0.3rem" }}
+                        type="radio"
+                        name="type"
+                        value="Feedback"
+                        checked={values.type === "Feedback"}
+                        onChange={handleChange}
+                      />
+                      Feedback
+                    </label>
+                
+                    <label>
+                      <input
+                        style={{ margin: "0.3rem" }}
+                        type="radio"
+                        name="type"
+                        value="Queries"
+                        checked={values.type === "Queries"}
+                        onChange={handleChange}
+                      />
+                      Queries
+                    </label>
+                    {touched.type && errors.type && (
+                      <div className="error">{errors.type}</div>
+                    )}
+                  </div>
+                  <button type="submit">Submit</button>
+                </form>
+              )}
+            </Formik>
           </Grid.Column>
         </Grid.Row>
 
