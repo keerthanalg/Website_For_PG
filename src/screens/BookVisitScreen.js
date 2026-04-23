@@ -4,6 +4,9 @@ import { Bounce, ToastContainer, toast } from "react-toastify";
 // import buildingImg from "../assets/images/building_img.jpg";
 import { Formik } from "formik";
 import * as Yup from "yup";
+// import { addDoc, collection } from "firebase/firestore";
+// import { db } from "../firebase";
+import { getDatabase, ref, push } from "firebase/database";
 
 const BookVisitScreen = () => {
   const validationSchema = Yup.object().shape({
@@ -11,10 +14,26 @@ const BookVisitScreen = () => {
     email: Yup.string().required("Email is required"),
     phone: Yup.number().required("Phone number is required"),
     date: Yup.string().required("Preffered date is required"),
-  });
+  });  
+  
+  const db = getDatabase();
+  const saveBooking =async (values) => {
+  try {
+    await push(ref(db, "visitbooking"),{
+      name: values.name,
+      email:values.email,
+      phone:values.phone,
+      date:values.date,
+    });
+    alert("Form Submitted");
+    } catch (error){
+      console.error("Error saving:", error);
+      alert("Error Saving");
+    }
+  };
 
   return (
-    <>
+    <>  
       <Grid
         className="booking_screen_grid"
         centered
@@ -22,7 +41,7 @@ const BookVisitScreen = () => {
         style={{
           boxShadow: "0em 0em 4em 1em #0000001c",
           margin: "8em auto",
-          maxWidth: "1200px",
+          maxWidth: "1200px",  
         }}
       >
         <h1>Book Your Visit</h1>
@@ -34,11 +53,29 @@ const BookVisitScreen = () => {
             <Formik
               validationSchema={validationSchema}
               initialValues={{ name: "", email: "", phone: "", date: "" }}
-              onSubmit={(values, { resetForm }) => {
-                toast("Booking Successful");
-                console.log(values, "values");
-                resetForm();
-              }}
+              // onSubmit={async (values, { resetForm }) => {
+              //  try {
+              //   const docRef=await addDoc(collection(db, "visitbooking"), {
+              //     name: values.name,
+              //     email: values.email,
+              //     phone: values.phone,
+              //     date: values.date
+              //   });
+              //   console.log("Form saved with ID:", docRef.id);
+              //   alert("Form Submitted")
+              //   resetForm();
+              //   } catch (error){
+              //     console.error("Error:", error);
+              //     alert("Error Saving");
+              //   }
+              //   // toast("Booking Successful");
+              //   // console.log(values, "values");
+              // }}
+
+            onSubmit={async (values, {resetForm}) => {
+              await saveBooking(values);
+              resetForm();
+            }}
             >
               {({
                 handleSubmit,
@@ -46,7 +83,7 @@ const BookVisitScreen = () => {
                 handleBlur,
                 values,
                 errors,
-                touched,
+                touched, 
               }) => (
                 <Form onSubmit={handleSubmit}>
                   <Form.Field>
@@ -60,14 +97,13 @@ const BookVisitScreen = () => {
                     />
                     {touched.name && errors.name && (
                       <div className="error">{errors.name}</div>
-                    )}
+                    )} 
                   </Form.Field>
-             
                   <Form.Field>
                     <label>Email</label>
                     <input
                       placeholder="Your Email"
-                      name="email"
+                      name="email" 
                       value={values.email}
                       onChange={handleChange}
                       onBlur={handleBlur}
@@ -119,3 +155,4 @@ const BookVisitScreen = () => {
   );
 };
 export default BookVisitScreen;
+
