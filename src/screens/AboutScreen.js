@@ -52,8 +52,8 @@ const AboutScreen = () => {
   return (
     <div className="aboutWrapper">
       <Grid>
-        <Grid.Row style={{ height: "49rem" }}>
-          <Grid.Column  width={12}>
+        <Grid.Row style={{ height: "49rem",  padding: "1rem 0 0 0" }}>
+          <Grid.Column  width={12} className="aboutus_img">
             <img
               src={building_img}
               alt="building_img"
