@@ -25,5 +25,5 @@ const firestore = getFirestore(app);
 
 export const auth = getAuth(app);
 export const db = getDatabase(app);
-export const inquiry_db = firestore(app);
-export const feedbackdb = firestore(app);
+export const inquiry_db = firestore;
+export const feedbackdb = firestore;
