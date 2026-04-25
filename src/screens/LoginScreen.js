@@ -1,242 +1,24 @@
-// import React, { useState } from "react";
-// import "./LoginScreen.css";
-// import { Button, Form, Grid } from "semantic-ui-react";
-// import { Formik } from "formik";
-// import * as Yup from "yup";
-// import { useNavigate } from "react-router-dom";
-// // import axios from "axios";
-// import "./LoginScreen.css";
-// // import banner_img from "../assets/images/building_pic.png";
-
-// const LoginScreen = () => {
-//   const [showPassword, setShowPassword] = useState(false);
-//   const [activeScreen, setActiveScreen] = useState("login");
-
-//   const loginValidation = Yup.object().shape({
-//     userName: Yup.string().required("User name is required"),
-//     password: Yup.string().required("Password is required"),
-//   });
-
-//   const forgotPasswordValidation = Yup.object().shape({
-//     email: Yup.string().email("Invalid email").required("Email is required"),
-//   });
-
-//   const navigate = useNavigate();
-
-//   return (
-//     <div className="loginWrapper">
-//       <Grid>
-//         <Grid.Row>
-//           <Grid.Column className="left_banner" width={8}>
-//             {/* <img src={banner_img} alt="banner_img" /> */}
-//           </Grid.Column>
-//           <Grid.Column className="right_banner" id="loginContainer" width={8}>
-//             {activeScreen === "login" ? (
-//               <Formik
-//                 initialValues={{ userName: "", password: "" }}
-//                 validationSchema={loginValidation}
-//                 onSubmit={async (values, { resetForm }) => {
-//                   console.log(values, "values");
-//                   resetForm();
-//                 }}
-//               >
-//                 {({
-//                   values,
-//                   errors,
-//                   touched,
-//                   handleSubmit,
-//                   handleChange,
-//                   handleBlur,
-//                 }) => (
-//                   <>
-//                     <Form onSubmit={handleSubmit}>
-//                       <h1 style={{ textAlign: "center", color: "black" }}>
-//                         Login
-//                       </h1>
-//                       <Form.Field className="userName">
-//                         <label>UserName</label>
-//                         <input
-//                           value={values.userName}
-//                           name="userName"
-//                           placeholder="Enter the username"
-//                           onChange={handleChange}
-//                           onBlur={handleBlur}
-//                         />
-//                         {touched.userName && errors.userName && (
-//                           <div className="error">{errors.userName}</div>
-//                         )}
-//                       </Form.Field>
-
-//                       <Form.Field
-//                         className="password"
-//                         style={{ position: "relative" }}
-//                       >
-//                         <label>Password</label>
-//                         <input
-//                           type={showPassword ? "text" : "password"}
-//                           value={values.password}
-//                           name="password"
-//                           placeholder="Enter the password"
-//                           onChange={handleChange}
-//                           onBlur={handleBlur}
-//                         />
-
-//                         <i
-//                           className={`fa ${
-//                             showPassword ? "fa-eye-slash" : "fa-eye"
-//                           }`}
-//                           onClick={() => setShowPassword((prev) => !prev)}
-//                         />
-
-//                         {touched.password && errors.password && (
-//                           <div className="error">{errors.password}</div>
-//                         )}
-//                       </Form.Field>
-//                       <div
-//                         style={{
-//                           textAlign: "right",
-//                           color: "gold",
-//                           margin: "1em",
-//                           display: "flex",
-//                           justifyContent: "space-between",
-//                         }}
-//                       >
-//                         {/* <span style={{ textAlign: "center", color: "black" }}>
-//                           Don't have account? Sign up
-//                         </span> */}
-//                         <span
-//                           style={{
-//                             textAlign: "center",
-//                             color: "black",
-//                             cursor: "pointer",
-//                           }}
-//                           onClick={() => setActiveScreen("/register")}
-//                         >
-//                           Don't have account? Sign up
-//                         </span>
-
-//                         <span
-//                           onClick={() => setActiveScreen("forgot")}
-//                           style={{ cursor: "pointer", color: "black" }}
-//                         >
-//                           Forgot Password?
-//                         </span>
-//                       </div>
-
-//                       <div className="buttonWrapper">
-//                         <Button
-//                           onClick={() => navigate("/offers")}
-//                           type="submit"
-//                         >
-//                           Login
-//                         </Button>
-//                       </div>
-//                     </Form>
-//                   </>
-//                 )}
-//               </Formik>
-//             ) : (
-//               <div className="forgot-password-wrapper">
-//                 <h1 style={{ textAlign: "center", color: "black" }}>
-//                   Forgot Password
-//                 </h1>
-
-//                 <Formik
-//                   initialValues={{ email: "" }}
-//                   validationSchema={forgotPasswordValidation}
-//                   // onSubmit={handleForgotPassword}
-//                 >
-//                   {({
-//                     values,
-//                     handleChange,
-//                     handleBlur,
-//                     handleSubmit,
-//                     errors,
-//                     touched,
-//                     isSubmitting,
-//                   }) => (
-//                     <Form onSubmit={handleSubmit}>
-//                       <Form.Field error={touched.email && !!errors.email}>
-//                         <label>Email</label>
-//                         <input
-//                           type="email"
-//                           name="email"
-//                           placeholder="Enter your email"
-//                           value={values.email}
-//                           onChange={handleChange}
-//                           onBlur={handleBlur}
-//                         />
-//                         {touched.email && errors.email && (
-//                           <div color="red" size="tiny">
-//                             {errors.email}
-//                           </div>
-//                         )}
-//                       </Form.Field>
-
-//                       <div className="buttonWrapper">
-//                         <Button
-//                           type="submit"
-//                           primary
-//                           fluid
-//                           disabled={isSubmitting}
-//                         >
-//                           {isSubmitting ? "Sending..." : "Send OTP"}
-//                         </Button>
-//                       </div>
-//                     </Form>
-//                   )}
-//                 </Formik>
-//                 <div
-//                   style={{
-//                     display: "flex",
-//                     gap: "2rem",
-//                     color: "black",
-//                     margin: "1rem 0rem",
-//                   }}
-//                 >
-//                   <span>Remember Password? </span>
-//                   <span
-//                     onClick={() => setActiveScreen("login")}
-//                     style={{
-//                       cursor: "pointer",
-//                       color: "blue",
-//                       fontWeight: "bold",
-//                     }}
-//                   >
-//                     Login
-//                   </span>
-//                 </div>
-
-//                 {/* <Link to="/login">Login</Link> */}
-//               </div>
-//             )}
-
-//             {/*  */}
-
-//           </Grid.Column>
-//         </Grid.Row>
-//       </Grid>
-//     </div>
-//   );
-// };
-
-// export default LoginScreen;
 import React, { useState } from "react";
 import "./LoginScreen.css";
 import { Button, Form, Grid } from "semantic-ui-react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { toast } from "react-toastify";
 
 const LoginScreen = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [activeScreen, setActiveScreen] = useState("login");
   const navigate = useNavigate();
 
-  // ---------------- VALIDATIONS ----------------
+  const location = useLocation();
+
+  let activeScreen = "login";
+
+if (location.pathname === "/register") activeScreen = "register";
+else if (location.pathname === "/forgot") activeScreen = "forgot";
+
   const loginValidation = Yup.object().shape({
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string().required("Password is required"),
@@ -254,17 +36,7 @@ const LoginScreen = () => {
     email: Yup.string().email("Invalid email").required("Email is required"),
   });
 
-  // ---------------- FIREBASE HANDLERS ----------------
-  // const handleLogin = async (values, { resetForm }) => {
-  //   try {
-  //     await signInWithEmailAndPassword(auth, values.email, values.password);
-  //     toast.success("Login successful!");
-  //     navigate("/offers");
-  //   } catch (error) {
-  //     toast.error(error.message);
-  //   }
-  //   resetForm();
-  // };
+
   const ADMIN_EMAILS = ["admin1@gmail.com"];
 
   const handleLogin = async (values, { resetForm }) => {
@@ -274,7 +46,6 @@ const LoginScreen = () => {
   
       toast.success("Login successful!");
   
-      // Check if admin
       if (ADMIN_EMAILS.includes(userEmail)) {
         navigate("/admin");
       } else {
@@ -291,7 +62,6 @@ const LoginScreen = () => {
     try {
       await createUserWithEmailAndPassword(auth, values.email, values.password);
       toast.success("Account created successfully!");
-      setActiveScreen("login");
     } catch (error) {
       toast.error(error.message);
     }
@@ -312,11 +82,9 @@ const LoginScreen = () => {
       <Grid>
         <Grid.Row>
           <Grid.Column className="left_banner" width={8}>
-            {/* You can add an image or logo here */}
           </Grid.Column>
 
           <Grid.Column className="right_banner" id="loginContainer" width={8}>
-            {/* ---------------- LOGIN SCREEN ---------------- */}
             {activeScreen === "login" && (
               <Formik
                 initialValues={{ email: "", password: "" }}
@@ -371,14 +139,14 @@ const LoginScreen = () => {
                     >
                       <span
                         style={{ cursor: "pointer" }}
-                        onClick={() => setActiveScreen("register")}
+                        onClick={() =>  navigate("/register")}
                       >
                         Don't have an account? Sign up
                       </span>
 
                       <span
                         style={{ cursor: "pointer" }}
-                        onClick={() => setActiveScreen("forgot")}
+                        onClick={() =>  navigate("/forgot")}
                       >
                         Forgot Password?
                       </span>
@@ -392,7 +160,6 @@ const LoginScreen = () => {
               </Formik>
             )}
 
-            {/* ---------------- REGISTER SCREEN ---------------- */}
             {activeScreen === "register" && (
               <Formik
                 initialValues={{ userName: "", email: "", password: "" }}
@@ -443,7 +210,6 @@ const LoginScreen = () => {
                       />
                       <i
                       className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
-                        // className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}
                         onClick={() => setShowPassword((prev) => !prev)}
                       />
                       {touched.password && errors.password && (
@@ -464,7 +230,7 @@ const LoginScreen = () => {
                       <span>Already have an account?</span>
                       <span
                         style={{ cursor: "pointer", fontWeight: "bold" }}
-                        onClick={() => setActiveScreen("login")}
+                        onClick={() => navigate("/login")}
                       >
                         Login
                       </span>
@@ -478,14 +244,12 @@ const LoginScreen = () => {
               </Formik>
             )}
 
-            {/* ---------------- FORGOT PASSWORD SCREEN ---------------- */}
             {activeScreen === "forgot" && (
               <Formik
                 initialValues={{ email: "" }}
                 validationSchema={forgotPasswordValidation}
                 onSubmit={(values) => {
                   toast.info(`Password reset link sent to ${values.email}`);
-                  setActiveScreen("login");
                   handleForgotPassword(values.email);
                 }}
               >
@@ -523,7 +287,7 @@ const LoginScreen = () => {
                     >
                       <span>Remember Password?</span>
                       <span
-                        onClick={() => setActiveScreen("login")}
+                        onClick={() => navigate("/login")}
                         style={{ cursor: "pointer", color: "blue", fontWeight: "bold" }}
                       >
                         Login
