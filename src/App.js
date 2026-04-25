@@ -17,7 +17,7 @@ import AdminDashboard from "./screens/AdminScreen";
 function App() {
   const location = useLocation();
 
-  const hideLayout = ["/login", "/forget-password"];
+  const hideLayout = ["/login"];
   const shouldHide = hideLayout.includes(location.pathname);
   return (
     // <Router>
@@ -31,9 +31,11 @@ function App() {
         <Route path="/bookvisit" element={<BookVisitScreen />} />
         <Route path="/offers" element={<Offersandupdate />} />
         <Route path="/admin" element={<AdminDashboard />} />
-        {/* <Route path="/forget-password" element={<ForgotPasswordScreen />} /> */}
+
+        <Route path="/register" element={<LoginScreen />} />
+        <Route path="/forgot" element={<LoginScreen />} />
       </Routes>
-        <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={3000} />
       {!shouldHide && <DefaultFooter />}
     </div>
     // </Router>
