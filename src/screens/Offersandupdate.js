@@ -154,7 +154,7 @@ const Offersandupdate = () => {
                 touched,
               }) => (
 
-                <form
+                <form   
                   style={{ padding: "1rem 13rem" }}
                   onSubmit={handleSubmit}
                 >
@@ -220,7 +220,7 @@ const Offersandupdate = () => {
                         checked={values.type === "Queries"}
                         onChange={handleChange}
                       />
-                      Queries
+                      Support & Queries
                     </label>
                     {touched.type && errors.type && (
                       <div className="error">{errors.type}</div>
