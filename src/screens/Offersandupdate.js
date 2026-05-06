@@ -8,7 +8,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { feedbackdb } from "../firebase";
-import { useState } from "react";
 
 // import kitchen from "../assets/icons/kitchen_area.png";
 
@@ -168,9 +167,7 @@ const Offersandupdate = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  {/* {touched.name && errors.name && (
-                    <div className="error">{errors.name}</div>
-                  )} */}
+                
                   {(touched.name || submitCount > 0) && errors.name && (
                     <div className="error">{errors.name}</div>
                   )}
