@@ -8,6 +8,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { feedbackdb } from "../firebase";
+import { useState } from "react";
 
 // import kitchen from "../assets/icons/kitchen_area.png";
 
@@ -31,7 +32,8 @@ const Offersandupdate = () => {
     type: Yup.string().required("Please select one option"),
   });
 
-  const handleFormSubmit = async (values, {resetForm}) => {
+
+  const handleFormSubmit = async (values, { resetForm }) => {
     console.log('Form Values:', values)
     try {
       await addDoc(collection(feedbackdb, "feedbackAndqueries"), {
@@ -110,7 +112,7 @@ const Offersandupdate = () => {
       },
     },
   ];
-
+ 
   return (
     <div className="offersWrapper">
       <h1>Welcome to our happy stay PG</h1>
@@ -141,7 +143,7 @@ const Offersandupdate = () => {
                 name: "",
                 room_no: "",
                 message: "",
-                type:""
+                type: ""
               }}
               onSubmit={handleFormSubmit}
             >
@@ -152,9 +154,10 @@ const Offersandupdate = () => {
                 values,
                 errors,
                 touched,
+                submitCount
               }) => (
 
-                <form   
+                <form
                   style={{ padding: "1rem 13rem" }}
                   onSubmit={handleSubmit}
                 >
@@ -165,7 +168,10 @@ const Offersandupdate = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  {touched.name && errors.name && (
+                  {/* {touched.name && errors.name && (
+                    <div className="error">{errors.name}</div>
+                  )} */}
+                  {(touched.name || submitCount > 0) && errors.name && (
                     <div className="error">{errors.name}</div>
                   )}
                   <br /> <br />
@@ -176,7 +182,7 @@ const Offersandupdate = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  {touched.room_no && errors.room_no && (
+                  {(touched.room_no || submitCount > 0) && errors.room_no && (
                     <div className="error">{errors.room_no}</div>
                   )}
                   <br /> <br />
@@ -188,7 +194,7 @@ const Offersandupdate = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                   />
-                  {touched.message && errors.message && (
+                  {(touched.message || submitCount > 0) && errors.message && (
                     <div className="error">{errors.message}</div>
                   )}
                   <br /> <br />
@@ -210,7 +216,7 @@ const Offersandupdate = () => {
                       />
                       Feedback
                     </label>
-                
+
                     <label>
                       <input
                         style={{ margin: "0.3rem" }}
@@ -222,7 +228,7 @@ const Offersandupdate = () => {
                       />
                       Support & Queries
                     </label>
-                    {touched.type && errors.type && (
+                    {(touched.type || submitCount > 0) && errors.type && (
                       <div className="error">{errors.type}</div>
                     )}
                   </div>
