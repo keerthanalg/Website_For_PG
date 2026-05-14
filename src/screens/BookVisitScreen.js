@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form, Grid } from "semantic-ui-react";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer } from "react-toastify";
 // import buildingImg from "../assets/images/building_img.jpg";
 import { Formik } from "formik";
 import * as Yup from "yup";
